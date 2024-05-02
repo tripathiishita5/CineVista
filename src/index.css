@@ -24,3 +24,6 @@
 input::placeholder {
   color: black; /* Change this to the color you desire */
 }
+.trending::-webkit-scrollbar{
+  display: none;
+}
