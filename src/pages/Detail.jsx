@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCast } from "../hooks/useCast.jsx";
+import { useVideo } from "../hooks/useVideos.jsx";
+import ReactPlayer from "react-player";
+import VideoComponent from "../components/Trailer.jsx";
 
 const Detail = () =>{
   const options = {
@@ -15,8 +18,9 @@ const Detail = () =>{
   const [detail, setDetail] = useState(null);
   const {id} = useParams();
   const cast = useCast(id);
+  const video = useVideo(id);
 
-  console.log(cast);
+  //console.log(cast);
   useEffect(() => {
     data();
   }, [detail]);
@@ -26,7 +30,8 @@ const Detail = () =>{
     const data = await response.json();
     //console.log(data);
     setDetail(data);
-  }  
+  };
+  
 
     return (
       <div className="h-auto p-4 bg-slate-800">
@@ -55,7 +60,7 @@ const Detail = () =>{
                 );
               })}
             </h3>
-
+            {video && video.length > 0 && <VideoComponent videos={video} />}
             <h3 className="text-lg">Overview</h3>
             <p className="mb-5">{detail?.overview}</p>
 
@@ -77,10 +82,9 @@ const Detail = () =>{
 
         <h3 className="text-lg text-white mt-5 ml-4 mb-2">Top Cast</h3>
 
-        <div className="flex gap-3">
-          {cast?.slice(0,9).map((member) => (
-            <div
-              key={member.cast_id}>
+        <div className="flex gap-4">
+          {cast?.slice(0, 9)?.map((member) => (
+            <div key={member.cast_id}>
               <img
                 className="w-32 h-32 rounded-full"
                 src={`https://image.tmdb.org/t/p/w200${member.profile_path}`}
@@ -94,7 +98,6 @@ const Detail = () =>{
             </div>
           ))}
         </div>
-
       </div>
     );
 }
