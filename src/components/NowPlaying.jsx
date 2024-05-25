@@ -24,7 +24,7 @@ const NowPlaying = () => {
     );
     const data = await response.json();
     setNowPlayingMovies(data.results);
-    console.log(data.results);
+    //console.log(data.results);
   };
   return (
     <div className="trending bg-slate-800 gap-4 flex z-10 overflow-x-auto mt-4">

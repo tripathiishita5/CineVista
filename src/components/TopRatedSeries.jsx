@@ -1,8 +1,8 @@
+import { useState, useEffect } from "react";
+import {Link} from 'react-router-dom';
 import Card from "./Card.jsx";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
-const PopularSeries = () => {
+const TopRatedSeries = () => {
     const options = {
         method: 'GET',
         headers: {
@@ -11,21 +11,24 @@ const PopularSeries = () => {
         }
       };
       
-      const [popularSeries, setPopularSeries] = useState(null);
-      useEffect(() => {
-        data();
-      }, []);
+    const [topRatedSeries, setTopRatedSeries] = useState(null);
+    useEffect(() => {
+      data();
+    }, []);
 
-      const data = async () => {
-        const response = await fetch('https://api.themoviedb.org/3/tv/popular', options);
-        const data = await response.json();
-        setPopularSeries(data.results);
-        //console.log(data.results);
-      };
+    const data = async () => {
+      const response = await fetch(
+        "https://api.themoviedb.org/3/tv/top_rated",
+        options
+      );
+      const data = await response.json();
+      setTopRatedSeries(data.results);
+      //console.log(data.results);
+    };
 
     return (
       <div className="trending bg-slate-800 gap-4 flex z-10 overflow-x-auto mt-4">
-        {popularSeries?.map((val, index) => (
+        {topRatedSeries?.map((val, index) => (
           <Link key={index} to={`/series/${val.id}`}>
             <Card title={val.original_name} image={val.poster_path} />
           </Link>
@@ -33,4 +36,5 @@ const PopularSeries = () => {
       </div>
     );
 }
-export default PopularSeries;
+
+export default TopRatedSeries;

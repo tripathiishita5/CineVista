@@ -23,7 +23,7 @@ const Detail = () =>{
   //console.log(cast);
   useEffect(() => {
     data();
-  }, [detail]);
+  }, [id]);
 
   const data = async() => {
     const response = await fetch('https://api.themoviedb.org/3/movie/'+id+'?language=en-US', options);

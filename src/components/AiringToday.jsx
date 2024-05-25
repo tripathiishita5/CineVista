@@ -23,14 +23,18 @@ const AiringToday = () => {
         );
         const data = await response.json();
         setAiringToday(data.results);
-        console.log(data.results);
+        //console.log(data.results);
       };
 
-      return(
-        <div>
-            <p>airing today series</p>
+      return (
+        <div className="trending bg-slate-800 gap-4 flex z-10 overflow-x-auto mt-4">
+          {airingToday?.map((val, index) => (
+            <Link key={index} to={`/series/${val.id}`}>
+              <Card title={val.original_name} image={val.poster_path} />
+            </Link>
+          ))}
         </div>
-      )
+      );
   
 };
 export default AiringToday;

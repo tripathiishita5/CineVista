@@ -11,6 +11,7 @@ import Home from './pages/Home.jsx';
 import Upcoming from './pages/Upcoming.jsx';
 import Detail from './pages/Detail.jsx';
 import Series from './pages/Series.jsx';
+import SeriesDetail from './pages/SeriesDetail.jsx';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/series",
         element: <Series/>,
+      },
+      {
+        path: "/series/:id",
+        element: <SeriesDetail/>,
       }
     ],
     errorElement:<Error/>

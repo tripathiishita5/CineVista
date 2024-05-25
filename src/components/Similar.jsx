@@ -27,7 +27,7 @@ const Similar = () => {
         );
         const data = await response.json();
         setSimilarMovies(data.results);
-        console.log(data.results);
+        //console.log(data.results);
     };
 
     return (
