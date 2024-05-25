@@ -10,6 +10,7 @@ import Error from './pages/Error.jsx';
 import Home from './pages/Home.jsx';
 import Upcoming from './pages/Upcoming.jsx';
 import Detail from './pages/Detail.jsx';
+import Series from './pages/Series.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/detail/:id",
         element: <Detail/>,
+      },
+      {
+        path: "/series",
+        element: <Series/>,
       }
     ],
     errorElement:<Error/>

@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCast } from "../hooks/useCast.jsx";
 import { useVideo } from "../hooks/useVideos.jsx";
-import ReactPlayer from "react-player";
 import VideoComponent from "../components/Trailer.jsx";
+import Similar from "../components/Similar";
 
 const Detail = () =>{
   const options = {
@@ -82,7 +82,7 @@ const Detail = () =>{
 
         <h3 className="text-lg text-white mt-5 ml-4 mb-2">Top Cast</h3>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 mb-7">
           {cast?.slice(0, 9)?.map((member) => (
             <div key={member.cast_id}>
               <img
@@ -98,6 +98,8 @@ const Detail = () =>{
             </div>
           ))}
         </div>
+        <h3 className="text-white text-2xl font-semibold">Similar</h3>
+        <Similar/>
       </div>
     );
 }

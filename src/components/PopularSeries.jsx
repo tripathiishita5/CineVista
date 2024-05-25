@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import Card from "./Card.jsx";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-export const useVideo = (id) => {
+const PopularSeries = () => {
     const options = {
         method: 'GET',
         headers: {
@@ -8,20 +10,22 @@ export const useVideo = (id) => {
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwOGRmZWU2YzQ5YTJlZTAxNzE5ZTViOTU1OThhNzk2OCIsInN1YiI6IjY2MTY1OGEwMjQyZjk0MDE3ZGM0YTBmZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rNo2wYB8V_OQgd15h_kr_U0ORyJt8p9vvjpDqUeaZiM'
         }
       };
-    
-      const [video, setVideo] = useState(null);
-
+      const [popularSeries, setPopularSeries] = useState(null);
       useEffect(() => {
         data();
       }, []);
-
       const data = async () => {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}/videos`, options);
+        const response = await fetch('https://api.themoviedb.org/3/tv/popular', options);
         const data = await response.json();
-        setVideo(data.results);
-        //console.log(data.results);
+        setPopularSeries(data.results);
+        console.log(data.results);
       };
 
-      return video;
+    return(
+        <div>
+            <p>watch popular series</p>
+            
+        </div>
+    )
 }
+export default PopularSeries;
