@@ -1,7 +1,7 @@
 
 const Card = ({image,title})=>{
     return (
-      <div className=" w-36 ">
+      <div className="w-40">
         <img
           className="w-full h-full hover:shadow-2xl hover:shadow-zinc-600"
           src={`https://image.tmdb.org/t/p/w500${image}`}

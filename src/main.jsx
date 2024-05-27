@@ -12,6 +12,7 @@ import Upcoming from './pages/Upcoming.jsx';
 import Detail from './pages/Detail.jsx';
 import Series from './pages/Series.jsx';
 import SeriesDetail from './pages/SeriesDetail.jsx';
+import Popular from './pages/Popular.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/series/:id",
         element: <SeriesDetail/>,
+      },
+      {
+        path: "/popular",
+        element: <Popular/>,
       }
     ],
     errorElement:<Error/>

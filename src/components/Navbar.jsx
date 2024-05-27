@@ -21,13 +21,14 @@ const Navbar = () =>{
             <span className="ml-3 text-xl">CineVista</span>
           </a>
           <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-            <a className="mr-5 hover:text-white">First Link</a>
-            <a className="mr-5 hover:text-white">Second Link</a>
-            <Link to={"/series"} className="mr-5 hover:text-white">
-              Series
+            <Link to={"/popular"} className="mr-5 hover:text-white text-lg">
+              Popular
             </Link>
-            <Link to={"/upcoming"} className="mr-5 hover:text-white">
+            <Link to={"/upcoming"} className="mr-5 hover:text-white text-lg">
               Upcoming
+            </Link>
+            <Link to={"/series"} className="mr-5 hover:text-white text-lg">
+              Series
             </Link>
           </nav>
           <Searchbar />

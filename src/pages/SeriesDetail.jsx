@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useVideoSeries } from "../hooks/useVideosSeries.jsx";
+import VideoComponent from "../components/Trailer.jsx";
+import { useCastSeries } from "../hooks/useCastSeries.jsx";
 
 const SeriesDetail = () => {
     const options = {
@@ -11,6 +14,8 @@ const SeriesDetail = () => {
       };
       const [seriesDetail, setSeriesDetail] = useState(null);
       const { id } = useParams();
+      const video = useVideoSeries(id);
+      const cast = useCastSeries(id);
       
       useEffect(() => {
         data();
@@ -53,6 +58,7 @@ const SeriesDetail = () => {
                 );
               })}
             </h3>
+            {video && video.length > 0 && <VideoComponent videos={video} />}
             <h3 className="text-lg">Overview</h3>
             <p className="mb-5">{seriesDetail?.overview}</p>
             <div className="flex gap-5">
@@ -70,6 +76,23 @@ const SeriesDetail = () => {
               </h3>
             </div>
           </div>
+        </div>
+
+        <h3 className="text-lg text-white mt-5 ml-4 mb-2">Top Cast</h3>
+        <div className="flex gap-4 mb-7">
+          {cast?.slice(0, 9)?.map((member) => (
+            <div key={member.cast_id}>
+              <img
+                className="w-32 h-32 rounded-full"
+                src={`https://image.tmdb.org/t/p/w200${member.profile_path}`}
+                alt={member.name}
+              />
+              <h4 className="text-center mt-2 text-white">{member.name}</h4>
+              <p className="text-center text-sm text-gray-400">
+                {member.character}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     );
