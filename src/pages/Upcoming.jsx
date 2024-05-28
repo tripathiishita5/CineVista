@@ -12,21 +12,43 @@ const Upcoming = () => {
     },
   };
 
-  const [upcomingMovies, setUpcomingMovies] = useState(null);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     data();
-  }, []);
+  }, [page]);
 
   const data = async () => {
     const response = await fetch(
-      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=" + page,
       options
     );
     const data = await response.json();
     // console.log(data.results);
-    setUpcomingMovies(data.results);
+    setUpcomingMovies((prev) => [...prev, ...data.results]);
   };
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if(entries[0].isIntersecting){
+          setPage((prev) => prev + 1);
+        }
+      },
+      {threshold: 1}
+    );
+    const watchingDiv = document.getElementById("watching-you");
+    if(watchingDiv){
+      observer.observe(watchingDiv);
+    }
+    return () => {
+      if(watchingDiv){
+        observer.unobserve(watchingDiv);
+      }
+    };
+  }, [upcomingMovies]);
+
   return (
     <div className="w-full h-full bg-gray-800 p-4 flex flex-wrap justify-center gap-4">
       {upcomingMovies?.map((val, index) => (
@@ -34,6 +56,7 @@ const Upcoming = () => {
           <Card title={val.original_title} image={val.poster_path} />
         </Link>
       ))}
+      <div id="watching-you"></div>
     </div>
   );
 };

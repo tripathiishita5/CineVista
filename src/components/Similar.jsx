@@ -2,6 +2,7 @@ import Card from './Card.jsx'
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Shimmer from './Shimmer.jsx';
 
 const Similar = () => {
     const options = {
@@ -32,11 +33,16 @@ const Similar = () => {
 
     return (
       <div className="trending gap-4 flex z-10 overflow-x-auto mt-4">
-        {similarMovies?.map((val, index) => (
-          <Link key={index} to={`/detail/${val.id}`}>
-            <Card title={val.original_title} image={val.poster_path} />
-          </Link>
-        ))}
+        {similarMovies ? (
+          similarMovies.map((val, index) => (
+            <Link key={index} to={`/detail/${val.id}`}>
+              <Card title={val.original_title} image={val.poster_path} />
+            </Link>
+          ))
+        ) : (
+          // Render Shimmer components while the data is loading
+          <Shimmer />
+        )}
       </div>
     );
 }

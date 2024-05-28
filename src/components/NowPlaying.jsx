@@ -1,6 +1,7 @@
 import Card from "./Card.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Shimmer from "./Shimmer.jsx";
 
 const NowPlaying = () => {
   const options = {
@@ -28,11 +29,16 @@ const NowPlaying = () => {
   };
   return (
     <div className="trending bg-slate-800 gap-4 flex z-10 overflow-x-auto mt-4">
-      {nowPlayingMovies?.map((val, index) => (
-        <Link key={index} to={`/detail/${val.id}`}>
-          <Card title={val.original_title} image={val.poster_path} />
-        </Link>
-      ))}
+      {nowPlayingMovies ? (
+        nowPlayingMovies.map((val, index) => (
+          <Link key={index} to={`/detail/${val.id}`}>
+            <Card title={val.original_title} image={val.poster_path} />
+          </Link>
+        ))
+      ) : (
+        // Render Shimmer components while the data is loading
+        <Shimmer />
+      )}
     </div>
   );
 };

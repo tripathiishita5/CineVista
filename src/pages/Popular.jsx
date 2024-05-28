@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "../components/Card.jsx";
 import { Link } from "react-router-dom";
-import { useTopRated } from "../hooks/useTopRated.jsx";
-import { useParams } from "react-router-dom";
+
 
 const Popular = () => {
     const options = {
@@ -13,37 +12,50 @@ const Popular = () => {
         }
       };
       
-    const [popular, setPopular] = useState(null);
-    const topRated = useTopRated(null);
-    
+    const [popular, setPopular] = useState([]);
+    const [page, setPage] = useState(1);
     useEffect(() => {
-        data();
-    }, []);
+      data();
+    }, [page]);
+
     const data = async() => {
         const response = await fetch(
-          "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+          "https://api.themoviedb.org/3/movie/popular?language=en-US&page=" + page,
           options
         );
         const data = await response.json();
-        setPopular(data.results);
+        setPopular((prev) => [...prev, ...data.results]);
         //console.log(data.results);
     }
+
+    useEffect(() => {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((prev) => prev + 1);
+        }
+      });
+      const watchingDiv = document.getElementById("watching-you");
+      if (watchingDiv) {
+        observer.observe(watchingDiv);
+      }
+      return () => {
+        if (watchingDiv) {
+          observer.unobserve(watchingDiv);
+        }
+      };
+    }, [popular]);
     return (
       <div className="w-full h-full bg-gray-800 p-4">
-        <h1 className="text-white text-center text-xl pb-5">Popular & Top Rated</h1>
+        <h1 className="text-white text-center text-xl pb-5 italic">
+          Blockbuster Hits
+        </h1>
         <div className="flex flex-wrap justify-center gap-4">
           {popular?.map((val, index) => (
             <Link key={index} to={`/detail/${val.id}`}>
               <Card title={val.original_title} image={val.poster_path} />
             </Link>
           ))}
-        </div>
-        <div className="flex flex-wrap justify-center gap-4 mt-2">
-          {topRated?.map((val, i) => (
-            <Link key={i} to={`/detail/${val.id}`}>
-              <Card title={val.original_title} image={val.poster_path} />
-            </Link>
-          ))}
+          <div id="watching-you"></div>
         </div>
       </div>
     );

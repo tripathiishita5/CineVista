@@ -1,6 +1,5 @@
 import Trending from '../components/Trending.jsx'
 import NowPlaying from '../components/NowPlaying.jsx';
-import Latest from '../components/Latest.jsx';
 
 const Home = () =>{
     return (

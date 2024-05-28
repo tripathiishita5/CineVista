@@ -24,6 +24,9 @@ const Navbar = () =>{
             <Link to={"/popular"} className="mr-5 hover:text-white text-lg">
               Popular
             </Link>
+            <Link to={"/toprated"} className="mr-5 hover:text-white text-lg">
+              Top-Rated
+            </Link>
             <Link to={"/upcoming"} className="mr-5 hover:text-white text-lg">
               Upcoming
             </Link>

@@ -1,6 +1,7 @@
 import Card from "./Card.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Shimmer from "./Shimmer.jsx";
 
 const Trending = () =>{
     const options = {
@@ -12,6 +13,7 @@ const Trending = () =>{
       },
     };
     const [trendingMovies, setTrendingMovies] = useState(null);
+    //if(trendingMovies === null || trendingMovies === undefined) return <Shimmer/>
     useEffect(() => {
       data();
     }, []);
@@ -28,11 +30,14 @@ const Trending = () =>{
 
     return (
       <div className="trending bg-slate-800 gap-4 flex z-10 overflow-x-auto mt-4">
-        {trendingMovies?.map((val, index) => (
-          <Link key={index} to={`/detail/${val.id}`}>
-            <Card title={val.original_title} image={val.poster_path} />
-          </Link>
-        ))}
+        {trendingMovies
+          ? (trendingMovies.map((val, index) => (
+              <Link key={index} to={`/detail/${val.id}`}>
+                <Card title={val.original_title} image={val.poster_path} />
+              </Link>
+            )))
+          : // Render Shimmer components while the data is loading
+            (<Shimmer/>)}
       </div>
     );
 }
