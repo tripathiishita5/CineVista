@@ -41,6 +41,10 @@ const Detail = () =>{
               className="w-56 m-auto"
               src={`https://image.tmdb.org/t/p/w500${detail?.poster_path}`}
               alt="poster"
+              onError={(e) =>
+                (e.target.src =
+                  "https://4.bp.blogspot.com/-TpcA_rn2daE/V2LUiuyAyOI/AAAAAAAALhA/189W1xoBhC0UapHkK99iNB2UYrDg5LkqgCLcB/s1600/No-Poster.png")
+              }
             />
           </div>
 
@@ -89,6 +93,10 @@ const Detail = () =>{
                 className="w-32 h-32 rounded-full"
                 src={`https://image.tmdb.org/t/p/w200${member.profile_path}`}
                 alt={member.name}
+                onError={(e) => {
+                  e.target.src =
+                    "https://static.vecteezy.com/system/resources/previews/000/439/863/non_2x/vector-users-icon.jpg";
+                }}
               />
 
               <h4 className="text-center mt-2 text-white">{member.name}</h4>
@@ -99,7 +107,7 @@ const Detail = () =>{
           ))}
         </div>
         <h3 className="text-white text-2xl font-semibold">Similar</h3>
-        <Similar/>
+        <Similar />
       </div>
     );
 }
