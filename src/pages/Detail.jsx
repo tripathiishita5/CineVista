@@ -67,7 +67,6 @@ const Detail = () =>{
             {video && video.length > 0 && <VideoComponent videos={video} />}
             <h3 className="text-lg">Overview</h3>
             <p className="mb-5">{detail?.overview}</p>
-
             <div className="flex gap-5">
               <h3>
                 Status: <span className="text-slate-400">{detail?.status}</span>
