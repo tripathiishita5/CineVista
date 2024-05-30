@@ -14,6 +14,7 @@ import Series from './pages/Series.jsx';
 import SeriesDetail from './pages/SeriesDetail.jsx';
 import Popular from './pages/Popular.jsx';
 import TopRated from './pages/TopRated.jsx';
+import Wishlist from './pages/Wishlist.jsx';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/toprated",
         element: <TopRated/>,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist/>,
       }
     ],
     errorElement:<Error/>

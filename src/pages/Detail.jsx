@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useCast } from "../hooks/useCast.jsx";
 import { useVideo } from "../hooks/useVideos.jsx";
 import VideoComponent from "../components/Trailer.jsx";
 import Similar from "../components/Similar";
+import { GoHeartFill } from "react-icons/go";
+import { RiShareForwardFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Detail = () =>{
   const options = {
@@ -16,13 +19,16 @@ const Detail = () =>{
   };
 
   const [detail, setDetail] = useState(null);
+  const [isWishlist, setIsWishlist] = useState(false);
   const {id} = useParams();
   const cast = useCast(id);
   const video = useVideo(id);
+  const navigate = useNavigate();
 
   //console.log(cast);
   useEffect(() => {
     data();
+    checkIfWishlist();
   }, [id]);
 
   const data = async() => {
@@ -31,8 +37,33 @@ const Detail = () =>{
     //console.log(data);
     setDetail(data);
   };
-  
 
+  const checkIfWishlist = () => {
+    const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const movieInWishlist = storedWishlist.some((item) => item.id === parseInt(id));
+    setIsWishlist(movieInWishlist);
+  }
+  
+  const handleWishlistClick = () => {
+    const movie = {
+      id: detail?.id,
+      poster_path: detail?.poster_path,
+      title: detail?.title,
+    };
+    const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    if (isWishlist) {
+      const updatedWishlist = storedWishlist.filter(
+        (item) => item.id !== movie.id
+      );
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      setIsWishlist(false);
+    } else {
+      storedWishlist.push(movie);
+      localStorage.setItem("wishlist", JSON.stringify(storedWishlist));
+      setIsWishlist(true);
+    }
+  };
     return (
       <div className="h-auto p-4 bg-slate-800">
         <div className="w-full flex mt-4">
@@ -49,7 +80,17 @@ const Detail = () =>{
           </div>
 
           <div className="w-[70%] text-white">
-            <h1 className="font-bold font-serif text-2xl">{detail?.title}</h1>
+            <div className="flex justify-between">
+              <h1 className="font-bold font-serif text-2xl">{detail?.title}</h1>
+              <div className="flex gap-4 text-lg mr-3">
+                <GoHeartFill
+                  onClick={handleWishlistClick}
+                  className={`text-xl ${isWishlist ? "text-red-500" : ""}`}
+                />
+                <RiShareForwardFill className="text-xl" />
+              </div>
+            </div>
+
             <h3 className="italic mb-4">{detail?.tagline}</h3>
 
             <h3 className="mb-5">
@@ -64,6 +105,7 @@ const Detail = () =>{
                 );
               })}
             </h3>
+
             {video && video.length > 0 && <VideoComponent videos={video} />}
             <h3 className="text-lg">Overview</h3>
             <p className="mb-5">{detail?.overview}</p>

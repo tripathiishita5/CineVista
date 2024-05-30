@@ -33,6 +33,9 @@ const Navbar = () =>{
             <Link to={"/series"} className="mr-5 hover:text-white text-lg">
               Series
             </Link>
+            <Link to={"/wishlist"} className="mr-5 hover:text-white text-lg">
+              Wishlist
+            </Link>
           </nav>
           <Searchbar />
         </div>
