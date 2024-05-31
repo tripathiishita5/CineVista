@@ -15,51 +15,77 @@ import SeriesDetail from './pages/SeriesDetail.jsx';
 import Popular from './pages/Popular.jsx';
 import TopRated from './pages/TopRated.jsx';
 import Wishlist from './pages/Wishlist.jsx';
+import LoginComponent from './components/Login.jsx';
+import RegisterComponent from './components/Register.jsx';
+//import App2 from './pages/Auth.jsx';
+import Profile from './pages/Profile.jsx';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element:<App/>,
+    path: "/cineVista",
+    element: <App />,
     children: [
       {
-        path: "/",
-        element: <Home/>,
+        path: "/cineVista",
+        element: <Home />,
       },
       {
-        path: "/upcoming",
-        element: <Upcoming/>,
+        path: "/cineVista/upcoming",
+        element: <Upcoming />,
       },
       {
-        path: "/detail/:id",
-        element: <Detail/>,
+        path: "/cineVista/detail/:id",
+        element: <Detail />,
       },
       {
-        path: "/series",
-        element: <Series/>,
+        path: "/cineVista/series",
+        element: <Series />,
       },
       {
-        path: "/series/:id",
-        element: <SeriesDetail/>,
+        path: "/cineVista/series/:id",
+        element: <SeriesDetail />,
       },
       {
-        path: "/popular",
-        element: <Popular/>,
+        path: "/cineVista/popular",
+        element: <Popular />,
       },
       {
-        path: "/toprated",
-        element: <TopRated/>,
+        path: "/cineVista/toprated",
+        element: <TopRated />,
       },
       {
-        path: "/wishlist",
-        element: <Wishlist/>,
-      }
+        path: "/cineVista/wishlist",
+        element: <Wishlist />,
+      },
     ],
-    errorElement:<Error/>
+    errorElement: <Error />,
   },
+  {
+    path: "/",
+    element: <LoginComponent />,
+    children: [
+      {
+        path: "/register",
+        element: <RegisterComponent />,
+      },
+      {
+        path: "/login",
+        element: <LoginComponent />,
+      },
+      {
+        path: "/profile",
+        element:<Profile />
+      }
+    ]
+
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer />
   </React.StrictMode>,
 )
