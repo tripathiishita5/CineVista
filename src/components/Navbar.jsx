@@ -1,5 +1,7 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () =>{
     return (
@@ -38,6 +40,9 @@ const Navbar = () =>{
             </Link>
           </nav>
           <Searchbar />
+          <Link to={"/cineVista/profile"}>
+            <FaUser />
+          </Link>
         </div>
       </header>
     );
