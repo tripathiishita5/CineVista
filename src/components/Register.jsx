@@ -22,6 +22,7 @@ const RegisterComponent = () => {
         });
       }
       console.log("user registered");
+      window.location.href = "/";
       toast.success("User registered successfully"),{
         position: "top-center",
         autoClose: 5000,

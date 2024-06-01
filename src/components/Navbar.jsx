@@ -40,7 +40,7 @@ const Navbar = () =>{
             </Link>
           </nav>
           <Searchbar />
-          <Link to={"/cineVista/profile"}>
+          <Link to={"/profile"} className="ml-5">
             <FaUser />
           </Link>
         </div>

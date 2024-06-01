@@ -12,14 +12,14 @@ const LoginComponent = () => {
     try{
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Login Successful");
-      window.location.href = "/cineVista";
       toast.success("User loggedIn successfully"),
         {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 4000,
           hideProgressBar: false,
           closeOnClick: true,
         };
+        window.location.href = "/";
     }
     catch(error){
       console.log(error.message);

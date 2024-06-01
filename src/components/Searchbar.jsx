@@ -1,6 +1,7 @@
 import {  useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Searchbar = () => {
     const options = {
@@ -10,6 +11,7 @@ const Searchbar = () => {
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwOGRmZWU2YzQ5YTJlZTAxNzE5ZTViOTU1OThhNzk2OCIsInN1YiI6IjY2MTY1OGEwMjQyZjk0MDE3ZGM0YTBmZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rNo2wYB8V_OQgd15h_kr_U0ORyJt8p9vvjpDqUeaZiM'
         }
       };
+    const navigate = useNavigate();
     const [query,setQuery] =useState("");
     const [data, setData] = useState(null);
   
@@ -22,7 +24,12 @@ const Searchbar = () => {
         const data = await response.json();
         // console.log(data)
         setData(data.results);
-    }
+    };
+
+    const handleClick = (id) => {
+        setQuery("");
+        navigate(`/detail/${id}`);
+    };
 
     return (
       <div>
@@ -41,8 +48,8 @@ const Searchbar = () => {
         {query && (
           <div className="w-64 h-60 absolute mt-2 rounded text-black bg-gray-300 overflow-auto overflow-x-hidden">
             {data.map((val, index) => (
-              <Link key={index} to={`/detail/${val.id}`}>
-                <div className="w-56 py-2 px-4 border-b-2 flex gap-3 hover:bg-gray-400">
+              
+                <div onClick={() => handleClick(val.id)} className="w-56 py-2 px-4 border-b-2 flex gap-3 hover:bg-gray-400">
                   <img
                     className="w-10 h-12 rounded"
                     src={`https://image.tmdb.org/t/p/w500${
@@ -62,7 +69,7 @@ const Searchbar = () => {
                     ...
                   </p>
                 </div>
-              </Link>
+              
             ))}
           </div>
         )}
