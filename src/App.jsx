@@ -26,30 +26,78 @@ const AppRoutes = () => {
         element={!isAuthenticated ? <LoginComponent /> : <Navigate to="/" />}
       />
       <Route path="/register" element={<RegisterComponent />} />
-      <Route path="/" element={<ProtectedRoute component={Home} />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/upcoming"
-        element={<ProtectedRoute component={Upcoming} />}
+        element={
+          <ProtectedRoute>
+            <Upcoming />
+          </ProtectedRoute>
+        }
       />
       <Route
         path="/detail/:id"
-        element={<ProtectedRoute component={Detail} />}
+        element={
+          <ProtectedRoute>
+            <Detail />
+          </ProtectedRoute>
+        }
       />
-      <Route path="/series" element={<ProtectedRoute component={Series} />} />
+      <Route
+        path="/series"
+        element={
+          <ProtectedRoute>
+            <Series />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/series-detail/:id"
-        element={<ProtectedRoute component={SeriesDetail} />}
+        element={
+          <ProtectedRoute>
+            <SeriesDetail />
+          </ProtectedRoute>
+        }
       />
-      <Route path="/popular" element={<ProtectedRoute component={Popular} />} />
+      <Route
+        path="/popular"
+        element={
+          <ProtectedRoute>
+            <Popular />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/toprated"
-        element={<ProtectedRoute component={TopRated} />}
+        element={
+          <ProtectedRoute>
+            <TopRated />
+          </ProtectedRoute>
+        }
       />
       <Route
         path="/wishlist"
-        element={<ProtectedRoute component={Wishlist} />}
+        element={
+          <ProtectedRoute>
+            <Wishlist />
+          </ProtectedRoute>
+        }
       />
-      <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
       <Route path="*" element={<Error />} />
     </Routes>
   );

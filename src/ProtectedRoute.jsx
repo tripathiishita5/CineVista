@@ -1,18 +1,18 @@
 // ProtectedRoute.js
 import React from "react";
-import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-const ProtectedRoute = ({ component: Component }) => {
+const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
 
   return isAuthenticated ? (
     <>
       <Navbar />
-      <Component />
+      {children}
       <Footer />
     </>
   ) : (

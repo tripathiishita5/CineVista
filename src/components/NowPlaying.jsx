@@ -2,6 +2,8 @@ import Card from "./Card.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer.jsx";
+import ReactPlayer from "react-player";
+import {useVideo} from "../hooks/useVideos.jsx"
 
 const NowPlaying = () => {
   const options = {
@@ -36,25 +38,39 @@ const NowPlaying = () => {
       setRandomMovie(movies[randomIndex]);
     }
   };
+
   const filteredMovies = nowPlayingMovies?.filter(
     (movie) => movie.id !== randomMovie?.id
   );
+
+  const videoData = useVideo(randomMovie?.id);
+  const trailer = videoData?.find((video) => video.type === "Trailer");
   return (
     <div>
-      {randomMovie && (
-        <div
-          className="w-[70%] relative flex justify-center items-center h-96 bg-cover bg-center text-white"
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${randomMovie?.backdrop_path})`,
-          }}
-        >
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="relative z-10 p-4 text-center">
-            <h1 className="text-4xl font-bold">{randomMovie?.original_title}</h1>
-            <p className="mt-2 text-lg">{randomMovie?.tagline}</p>
+      <div className="flex justify-center">
+        {randomMovie && (
+          <div className="w-[70%] relative flex justify-center items-center h-96 bg-cover bg-center">
+            <ReactPlayer
+              key={trailer?.id}
+              url={`https://www.youtube.com/watch?v=${trailer?.key}`}
+              playing
+              autoplay
+              config={{
+                youtube: {
+                  playerVars: {
+                    controls: 0, // Hide controls
+                    disablekb: 1, // Disable keyboard controls
+                    modestbranding: 1, // Modest branding
+                    rel: 0, // Disable related videos
+                    fs: 0, // Disable fullscreen button
+                    iv_load_policy: 3, // Disable annotations
+                  },
+                },
+              }}
+            />
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       <div className="trending bg-slate-800 gap-4 flex z-10 overflow-x-auto mt-4">
         {filteredMovies ? (
@@ -64,7 +80,6 @@ const NowPlaying = () => {
             </Link>
           ))
         ) : (
-          // Render Shimmer components while the data is loading
           <Shimmer />
         )}
       </div>

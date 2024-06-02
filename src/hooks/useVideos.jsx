@@ -13,7 +13,7 @@ export const useVideo = (id) => {
 
       useEffect(() => {
         data();
-      }, []);
+      }, [id]);
 
       const data = async () => {
         const response = await fetch(
